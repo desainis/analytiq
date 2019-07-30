@@ -1,6 +1,8 @@
 const SlackBot = require('slackbots');
 const axios = require('axios');
-var services_quote = require('./services/quote-end-point.js');
+var quoteService = require('./services/quote-end-point.js');
+
+console.log(quoteService.fetchPriceforStock());
 
 require('dotenv').config();
 
@@ -61,7 +63,33 @@ bot.on('message', (data) => {
         handleCurrentPriceForStock(data.text);
     }
 
+    if (data.text.includes("stockbot") && data.text.includes("help")) {
+        getHelp(data.text);
+    }
+
 });
+
+// Respond to data
+function getHelp(message) {
+    const params = {
+        icon_emoji: ':stockbot:',
+        attachments: [
+            {
+                "fallback": "Stockbot Help",
+                "color": "#2eb886",
+                "title": "Stockbot Help",
+                "text": help,
+                "ts": (new Date).getTime() / 1000
+            }
+        ]
+    };
+
+    bot.postMessageToChannel(
+        'general', 
+        '',
+        params
+    );
+}
 
 // Respond to data
 function handleCurrentPriceForStock(message) {

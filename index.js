@@ -2,28 +2,18 @@ const SlackBot = require('slackbots');
 const axios = require('axios');
 var quoteService = require('./services/quote-end-point.js');
 
-console.log(quoteService.fetchPriceforStock());
-
 require('dotenv').config();
 
 const bot = new SlackBot({
     token: process.env.token,
-    name: "stockbot"
+    name: "Ross"
 });
 
 const help = `
-
-• *Hey Stockbot*, What is the current _price_ of *MSFT*?
-
-• *Hey Stockbot*, What is the current _price_ of *FLVT*?
-
-• *Hey Stockbot*, What was the _price_ of *GOOG* _yesterday_?
-
-• *Hey Stockbot*, What are the current _market projections_ for *AMZN*?
-
-• *Hey Stockbot*, What is _recent news_ for stock *FB*?
-
-• *Hey Stockbot*, What is _security symbol_ for *Microsoft*?
+*_ross help_* - Get usage help
+*_ross price MSFT_* - Get Current Price of security MSFT
+*_ross price GOOG <yesterday|10PM UTC|current>_* - Get price of security at time
+*_ross symbol Microsoft_* - Get the security symbol for Company name "Microsoft" (Can be partial names)
 `
 
 // Start Handler
@@ -35,7 +25,6 @@ bot.on('start', () => {
             {
                 "fallback": "Stockbot Help",
                 "color": "#2eb886",
-                "title": "Stockbot Help",
                 "text": help,
                 "ts": (new Date).getTime() / 1000
             }
@@ -44,7 +33,7 @@ bot.on('start', () => {
 
     bot.postMessageToChannel(
         'general', 
-        'Get Ready to Learn about Stocks `@stockbot`',
+        '',
         params
     );
 
@@ -59,11 +48,11 @@ bot.on('message', (data) => {
         return;
     }
     
-    if (data.text.includes("stockbot price")) {
+    if (data.text.includes("ross price")) {
         handleCurrentPriceForStock(data.text);
     }
 
-    if (data.text.includes("stockbot") && data.text.includes("help")) {
+    if (data.text.includes("ross") && data.text.includes("help")) {
         getHelp(data.text);
     }
 
@@ -75,9 +64,7 @@ function getHelp(message) {
         icon_emoji: ':stockbot:',
         attachments: [
             {
-                "fallback": "Stockbot Help",
                 "color": "#2eb886",
-                "title": "Stockbot Help",
                 "text": help,
                 "ts": (new Date).getTime() / 1000
             }
@@ -94,16 +81,7 @@ function getHelp(message) {
 // Respond to data
 function handleCurrentPriceForStock(message) {
     var words = message.split(' ');
-    console.log(words);
 
-    const params = {
-        icon_emoji: ':stockbot:'
-    }
+    var price = quoteService.fetchPriceforStock(bot, process.env.base_endpoint, process.env.api_key, words[2]);
 
-    var response = 'You asked for the price of stock - ' + words[2];
-    bot.postMessageToChannel(
-        'general', 
-        response,
-        params
-    );
 }

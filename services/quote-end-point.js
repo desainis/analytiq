@@ -3,58 +3,57 @@ const axios = require('axios');
 
 module.exports = {
 
-    fetchPriceforStock: function(apiKey, stockSymbol) {
-        return "10.5";
+    fetchPriceforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
+
+        axios.get(base_endpoint, {
+                params: {
+                    function: 'GLOBAL_QUOTE',
+                    symbol: stockSymbol,
+                    apikey: apiKey
+                }
+            })
+            .then(res => {
+
+                const params = {
+                    icon_emoji: ':stockbot:'
+                }
+                
+                var price = res.data['Global Quote']['05. price'];
+
+                var response = 'The current price of security ' + stockSymbol + ' is ' + price;
+
+                bot.postMessageToChannel(
+                    'general', 
+                    response,
+                    params
+                );
+            })
+            .catch(function(error) {
+                // handle error
+                console.log(error);
+            });
     },
-    fetchOpenPriceforStock: function(apiKey, stockSymbol) {
+    fetchOpenPriceforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get open price for stock
 
     },
-    fetchPreviousClosePriceforStock: function(apiKey, stockSymbol) {
+    fetchPreviousClosePriceforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get previous close price for stock
 
     },
-    fetchHighPriceforStock: function(apiKey, stockSymbol) {
+    fetchHighPriceforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get open price for stock
 
     },
-    fetchLowPriceforStock: function(apiKey, stockSymbol) {
+    fetchLowPriceforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get open price for stock
 
     },
-    fetchVolumeforStock: function(apiKey, stockSymbol) {
+    fetchVolumeforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get trading volume for stock
 
     },
-    fetchChangeforStock: function(apiKey, stockSymbol) {
-        // Get change for stock
-
-    },
-    respondForPriceforStock: function(apiKey, stockSymbol) {
-        // Get current price for security stockSymbol
-
-    },
-    respondForOpenPriceforStock: function(apiKey, stockSymbol) {
-        // Get open price for stock
-
-    },
-    respondForPreviousClosePriceforStock: function(apiKey, stockSymbol) {
-        // Get previous close price for stock
-
-    },
-    respondForHighPriceforStock: function(apiKey, stockSymbol) {
-        // Get open price for stock
-
-    },
-    respondForLowPriceforStock: function(apiKey, stockSymbol) {
-        // Get open price for stock
-
-    },
-    respondForVolumeforStock: function(apiKey, stockSymbol) {
-        // Get trading volume for stock
-
-    },
-    respondForChangeforStock: function(apiKey, stockSymbol) {
+    fetchChangeforStock: function(bot, base_endpoint, apiKey, stockSymbol) {
         // Get change for stock
 
     },

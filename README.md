@@ -32,6 +32,7 @@ An API key from Alpha Vantage
 
 #### Container Parameters
 
+- Build
 
 ```shell
 docker build -t analytiq .
@@ -40,7 +41,19 @@ docker build -t analytiq .
 - How to open a shell inside the analytiq image
 
 ```shell
-docker run analytiq:latest bash
+docker run analytiq bash
+```
+
+- Run it in detached mode (in the background)
+
+```shell
+docker run -d analytiq
+```
+
+- Run it in interactive mode
+
+```shell
+docker run -it analytiq
 ```
 
 #### Environment Variables

@@ -9,18 +9,18 @@ const bot = new SlackBot({
     name: "Ross"
 });
 
-const help = `
-*_ross help_* - Get usage help
-*_ross price MSFT_* - Get Current Price of security MSFT
-*_ross price GOOG <yesterday|10PM UTC|current>_* - Get price of security at time
-*_ross symbol Microsoft_* - Get the security symbol for Company name "Microsoft" (Can be partial names)
+const help = `Hi I'm Ross, Your handy dandy bot that knows everything about Stocks. Try asking:\n
+\`ross help\` - Get usage help
+\`ross price MSFT\` - Get Current Price of security MSFT
+\`ross price GOOG <yesterday|10PM UTC|current>\` - Get price of security at time
+\`ross symbol Microsoft\` - Get the security symbol for Company name "Microsoft"
 `
 
 // Start Handler
 bot.on('start', () => {
 
     const params = {
-        icon_emoji: ':stockbot:',
+        icon_emoji: ':ross:',
         attachments: [
             {
                 "fallback": "Stockbot Help",
@@ -61,7 +61,7 @@ bot.on('message', (data) => {
 // Respond to data
 function getHelp(message) {
     const params = {
-        icon_emoji: ':stockbot:',
+        icon_emoji: ':ross:',
         attachments: [
             {
                 "color": "#2eb886",

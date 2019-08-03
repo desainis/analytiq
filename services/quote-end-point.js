@@ -17,10 +17,10 @@ module.exports = {
                 const params = {
                     icon_emoji: ':stockbot:'
                 }
-                
+
                 var price = res.data['Global Quote']['05. price'];
 
-                var response = 'The current price of security ' + stockSymbol + ' is ' + price;
+                var response = 'The current price of security `' + stockSymbol + '` is `' + price + "USD`";
 
                 bot.postMessageToChannel(
                     'general', 

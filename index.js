@@ -9,7 +9,7 @@ const bot = new SlackBot({
     name: "Ross"
 });
 
-const help = `Hi I'm Ross, Your handy dandy bot that knows everything about Stocks. Try asking:\n
+const help = `Hi I'm Ross, Your handy dandy bot that knows everything about Stocks. Usage:\n
 \`ross help\` - Get usage help
 \`ross price MSFT\` - Get Current Price of security MSFT
 \`ross price GOOG <yesterday|10PM UTC|current>\` - Get price of security at time

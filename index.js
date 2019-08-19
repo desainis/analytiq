@@ -5,7 +5,9 @@ const { WebClient} = require('@slack/web-api');
 // Services
 var quoteService = require('./services/quote-end-point.js');
 var utils = require('./services/utils.js');
-var utilsSlack = require('./services/utils-slack.js');
+
+// NLP Services
+var messageAnalysisSvc = require('./services/nlp/sentiment-analysis.js');
 
 
 require('dotenv').config();
@@ -33,18 +35,13 @@ rtm.on('message', (event) => {
         return;
     }
 
+    var organization = messageAnalysisSvc.analyzeSlackMessageEntities(event.text)
+    .then(org => {
+        utils.postInfoAboutOrganization(rtm, web, event.channel, org, process.env.AV_API_KEY);
+    });
+
     if (event.text.includes("ross help")) {
         utils.getHelp(rtm, web, help, event.channel);
     }
 
-    if (event.text.startsWith("ross info")) {
-        var words = event.text.split(" ").length;
-
-        if (words === 3) {
-            
-        } else {
-            utils.postHelpForInfoMessage(rtm, web, event.channel);
-        }
-
-    }
 });

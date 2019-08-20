@@ -31,7 +31,7 @@ module.exports = {
             })
             .then(res => {
     
-                return res;
+                return res.data;
             })
             .catch(function(error) {
                 // handle error
@@ -71,7 +71,7 @@ module.exports = {
             })
             .then(res => {
     
-                return res;
+                return res.data;
             })
             .catch(function(error) {
                 // handle error

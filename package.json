@@ -20,7 +20,7 @@
     "@google-cloud/language": "^3.2.6",
     "@slack/events-api": "^2.3.0",
     "@slack/rtm-api": "^5.0.2",
-    "@slack/web-api": "^5.1.0",
+    "@slack/web-api": "^5.8.0",
     "axios": "^0.19.0",
     "dotenv": "^8.1.0",
     "nodemon": "^1.19.1"

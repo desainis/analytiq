@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@slack/web-api"
+    versions:
+    - 6.0.0
+  - dependency-name: "@google-cloud/language"
+    versions:
+    - 4.2.1
